@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Responsive Landing Page</title>
+<link rel="stylesheet" href="style.css"> 
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    border: 5px solid #333; /* Add border to the body */
+  }
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+  }
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+  }
+  nav li {
+    margin: 0 15px;
+  }
+  nav a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+    transition: color 0.3s ease;
+  }
+  nav a:hover {
+    color: #ff7f50;
+  }
+  .section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 36px;
+  }
+  .section:nth-child(odd) {
+    background-color: #e1bebe;
+  }
+  .section:nth-child(even) {
+    background-color: #e0c5c5;
+  }
+
+  
+  .blue-text {
+    color: blue;
+  }
+
+  
+  #section3, #section4 {
+    background-color: rgb(204, 228, 105);
+  }
+
+  #section3, #section4, #section5, #section3 p, #section4 p {
+    color: rgb(230, 39, 39);
+  }
+  #section3 h1, #section4 h1, #section5 h1 {
+    color:black;
+  }
+  #section5{
+    background-color: rgba(192, 192, 192, 0.707);
+  }
+  #section5 p{
+    color:black;
+  }
+
+</style>
+</head>
+<body>
+<nav id="main-menu">
+  <ul>
+    <li><a href="#section1">Home</a></li>
+    <li><a href="#section2">About</a></li>
+    <li><a href="#section3">Services</a></li>
+    <li><a href="#section4">Contact</a></li>
+    <li><a href="#section5">Bomber</a></li> 
+  </ul>
+</nav>
+<section id="section1" class="section">
+    <div class="center">
+        <h1>Welcome to Call Bomber</h1>
+        <p>"Welcome to our call bomber website! With just a few clicks, you can prank your friends or family with a flood of calls. It's all in good fun, so let's get started and bring some laughter to your day!"</p>
+    </div>
+</section>
+<section id="section2" class="section">
+    <div class="center">
+        <h1>About Us</h1>
+        <p>"Our call bomber website was created with the intention of adding a bit of excitement and humor to your day. We understand the importance of laughter and light-hearted moments, which is why we designed this platform to provide a fun and harmless way to prank your friends or loved ones. Our team is dedicated to ensuring a seamless experience for our users, while also maintaining a responsible approach to ensure the tool is used in a respectful manner. Join us in spreading smiles and creating memorable moments!"</p>
+    </div>
+</section>
+<section id="section3" class="section">
+    <div class="center">
+        <h1>Our Services</h1>
+        <p>"Our call bomber website offers a simple yet effective service that allows users to send multiple prank calls to their chosen recipients. With just a few clicks, you can flood your friend's phone with calls, creating a hilarious and unexpected surprise. Our platform is easy to use and provides a variety of customization options, ensuring that each prank is unique and tailored to your liking. Whether you're looking to spice up a gathering with friends or just want to play a harmless joke, our service is here to make it happen!"</p>
+    </div>
+</section>
+<section id="section4" class="section">
+    <div class="center">
+        <h1>Contact Us</h1>
+        <p>If you have any questions, suggestions, or feedback about our call bomber website, please don't hesitate to reach out to us. You can contact our team via email at <span class="blue-text">callbomber@gmail.com</span> or by phone at <span class="blue-text">+91 9694562378</span>, and we'll be happy to assist you. "We value your input and look forward to hearing from you!"</p>
+    </div>
+</section>
+<section id="section5" class="section">
+  <div class="center">
+      <h1>Call Bomber</h1>
+      <br>
+      <p>Use fast and free Call Bomber to prank your friends! Our easy-to-use tool sends hilarious pre-recorded calls in seconds.</p>
+      <form id="callBomberForm">
+        <label for="phoneNumbers">Enter Phone Numbers:</label><br>
+        <textarea id="phoneNumbers" name="phoneNumbers" rows="4" cols="50" required></textarea><br>
+        <label for="executionCount">Number of times :</label>
+        <input type="number" id="executionCount" name="executionCount" min="1" required><br>
+        <button type="submit">Bomb!</button>
+        <p id="successMessage" style="display: none; color:rgb(213, 21, 88);">Call Bomber was executed successfully!</p>
+      </form>
+  </div>
+</section>
+<script>
+  // JavaScript to handle form submission and display success message
+  document.getElementById('callBomberForm').addEventListener('submit', function(event) {
+    event.preventDefault(); 
+    document.getElementById('successMessage').style.display = 'block';
+  
+    document.getElementById('phoneNumbers').value = '';
+    document.getElementById('executionCount').value = '';
+   
+  });
+  
+  window.addEventListener('scroll', function() {
+    var nav = document.getElementById('main-menu');
+    if (window.scrollY > 50) {
+      nav.style.backgroundColor = '#222';
+    } else {
+      nav.style.backgroundColor = '#333';
+    }
+  });
+</script>
+</body>
+</html>
