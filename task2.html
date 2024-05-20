@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stopwatch</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  .container {
+    margin-top: 50px;
+  }
+  .btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 0 5px;
+    cursor: pointer;
+    position: relative;
+  }
+  .shortcut-text {
+    font-size: 12px;
+    color: #888;
+    position: absolute;
+    bottom: -20px; /* Adjust this value to position the shortcut text */
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap; /* Prevents shortcut text from wrapping */
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Stopwatch</h1>
+  <div id="display">00:00:00</div>
+  <div>
+    <button class="btn" id="startBtn" onclick="startStopwatch()">Start</button>
+    <span class="shortcut-text">(Press Enter)</span>
+    <br>
+    <button class="btn" id="pauseBtn" onclick="pauseStopwatch()" disabled>Pause</button>
+    <span class="shortcut-text">(Press p)</span>
+    <br>
+    <button class="btn" id="resetBtn" onclick="resetStopwatch()">Reset</button>
+    <span class="shortcut-text">(Press r)</span>
+    <br>
+    <button class="btn" id="lapBtn" onclick="recordLap()" disabled>Lap</button>
+    <span class="shortcut-text">(Press l)</span>
+    <br>
+    <button class="btn" id="stopBtn" onclick="stopStopwatch()">Stop</button>
+    <span class="shortcut-text">(Press s)</span>
+  </div>
+  <ul id="lap-times"></ul>
+</div>
+<script>
+  let stopwatchInterval;
+  let startTime;
+  let runningTime = 0;
+  let lapNumber = 1;
+
+  function startStopwatch() {
+    startTime = Date.now() - runningTime;
+    stopwatchInterval = setInterval(updateDisplay, 10);
+    toggleButtons(true);
+  }
+
+  function pauseStopwatch() {
+    clearInterval(stopwatchInterval);
+    toggleButtons(false);
+  }
+
+  function resetStopwatch() {
+    clearInterval(stopwatchInterval);
+    runningTime = 0;
+    startTime = Date.now(); // Reset startTime to current time
+    updateDisplay();
+    lapNumber = 1;
+    document.getElementById('lap-times').innerHTML = '';
+    toggleButtons(false);
+  }
+
+  function recordLap() {
+    const lapTime = formatTime(runningTime);
+    const lapItem = document.createElement('li');
+    lapItem.textContent = `Lap ${lapNumber}: ${lapTime}`;
+    document.getElementById('lap-times').appendChild(lapItem);
+    lapNumber++;
+  }
+
+  function stopStopwatch() {
+    clearInterval(stopwatchInterval);
+    toggleButtons(false);
+  }
+
+  function updateDisplay() {
+    runningTime = Date.now() - startTime;
+    document.getElementById('display').textContent = formatTime(runningTime);
+  }
+
+  function formatTime(milliseconds) {
+    const date = new Date(milliseconds);
+    const hours = date.getUTCHours().toString().padStart(2, '0');
+    const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+    const seconds = date.getUTCSeconds().toString().padStart(2, '0');
+    const millisecondsFormatted = date.getUTCMilliseconds().toString().padStart(3, '0');
+    return `${hours}:${minutes}:${seconds}.${millisecondsFormatted}`;
+  }
+
+  function toggleButtons(running) {
+    document.getElementById('startBtn').disabled = running;
+    document.getElementById('pauseBtn').disabled = !running;
+    document.getElementById('resetBtn').disabled = running;
+    document.getElementById('lapBtn').disabled = !running;
+    document.getElementById('stopBtn').disabled = !running;
+  }
+
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+      startStopwatch();
+    } else if (event.key === 'p') {
+      pauseStopwatch();
+    } else if (event.key === 'r') {
+      resetStopwatch();
+    } else if (event.key === 'l') {
+      recordLap();
+    } else if (event.key === 's') {
+      stopStopwatch();
+    }
+  });
+</script>
+</body>
+</html>
